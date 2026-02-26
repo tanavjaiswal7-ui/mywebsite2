@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spice & Brew Café | Indian fusion</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #faf7f2;  /* creamy background */
+      color: #2b2b2b;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* earthy palette */
+    :root {
+      --terracotta: #b85c3a;
+      --deep-green: #2f4b3c;
+      --beige: #e7dcd0;
+      --cream: #fdf8f2;
+      --warm-brown: #6b4f3c;
+      --gold-accent: #c49a6c;
+    }
+
+    /* subtle indian pattern (background) */
+    .pattern-bg {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" opacity="0.04"><path d="M16 16 L24 16 L20 24 Z M40 8 L48 8 L44 16 Z M64 20 L72 20 L68 28 Z M12 44 L20 44 L16 52 Z M38 38 L46 38 L42 46 Z M68 50 L76 50 L72 58 Z M24 64 L32 64 L28 72 Z M54 60 L62 60 L58 68 Z" fill="%232f4b3c"/><circle cx="28" cy="30" r="2.5" fill="%23b85c3a"/><circle cx="56" cy="16" r="2" fill="%236b4f3c"/><circle cx="18" cy="66" r="3" fill="%23b85c3a" opacity="0.5"/></svg>');
+      background-repeat: repeat;
+    }
+
+    /* navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: var(--cream);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 2px solid rgba(183, 92, 58, 0.15);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--deep-green);
+      letter-spacing: -0.02em;
+    }
+    .logo span {
+      color: var(--terracotta);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-weight: 500;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--warm-brown);
+      font-size: 1.1rem;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+    .nav-links a:hover {
+      border-bottom-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+
+    /* buttons */
+    .btn {
+      display: inline-block;
+      background-color: var(--deep-green);
+      color: white;
+      padding: 0.8rem 2.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      border: none;
+      transition: 0.3s;
+      box-shadow: 0 8px 18px -8px rgba(47,75,60,0.3);
+    }
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--deep-green);
+      color: var(--deep-green);
+      box-shadow: none;
+      margin-left: 1rem;
+    }
+    .btn-outline:hover {
+      background-color: var(--deep-green);
+      color: white;
+    }
+    .btn:hover {
+      background-color: #1e3a2e;
+      transform: translateY(-2px);
+    }
+
+    /* hero */
+    .hero {
+      padding: 3rem 0 5rem 0;
+      background: linear-gradient(130deg, var(--cream) 20%, #efe6da 90%);
+      position: relative;
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1 1 380px;
+    }
+    .hero-content h1 {
+      font-size: 3.4rem;
+      line-height: 1.1;
+      color: var(--deep-green);
+      margin-bottom: 1rem;
+    }
+    .hero-tagline {
+      font-size: 1.6rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--terracotta);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+    .hero-buttons {
+      margin: 2.5rem 0 1rem;
+    }
+    .hero-image {
+      flex: 1 1 380px;
+      background: #dacbbd;
+      border-radius: 30px 30px 30px 30px;
+      overflow: hidden;
+      box-shadow: 20px 20px 40px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      background-color: var(--beige);
+      padding: 0.5rem;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+      transition: 0.4s;
+    }
+    .hero-image img:hover {
+      transform: scale(1.02);
+    }
+    .hero-image .wide {
+      grid-column: span 2;
+      height: 240px;
+    }
+
+    /* intro section */
+    .intro-section {
+      padding: 4rem 0;
+      background-color: white;
+      text-align: center;
+      position: relative;
+    }
+    .intro-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--cream);
+      padding: 3rem;
+      border-radius: 60px 20px 60px 20px;
+      box-shadow: 0 20px 35px -8px rgba(109, 79, 50, 0.1);
+      border: 1px solid rgba(183, 92, 58, 0.1);
+    }
+    .intro-card p {
+      font-size: 1.3rem;
+      color: #4e3e2e;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* menu section */
+    .menu-section {
+      padding: 5rem 0;
+      background-color: var(--cream);
+    }
+    .section-title {
+      font-size: 2.8rem;
+      color: var(--deep-green);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--terracotta);
+      font-size: 1.3rem;
+      margin-bottom: 4rem;
+      font-style: italic;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .menu-category {
+      background: white;
+      border-radius: 30px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+      border: 1px solid #f0e3d5;
+      transition: all 0.2s;
+    }
+    .menu-category:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold-accent);
+    }
+    .category-title {
+      font-size: 1.9rem;
+      color: var(--deep-green);
+      border-bottom: 2px dashed var(--terracotta);
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.8rem;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      border-bottom: 1px dotted #ddd1c2;
+      padding-bottom: 0.6rem;
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .item-name {
+      font-weight: 500;
+      color: #3d2f21;
+    }
+    .item-price {
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    /* features (icons) */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem 4rem;
+      padding: 4rem 0;
+      background: white;
+      border-top: 1px solid var(--beige);
+      border-bottom: 1px solid var(--beige);
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.2rem;
+      background: #fdf8f2;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .feature-item i {
+      font-size: 2rem;
+      color: var(--terracotta);
+    }
+
+    /* food photo grid (professional) */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      padding: 3rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .photo-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.15);
+      transition: 0.3s ease;
+      border: 3px solid white;
+    }
+    .photo-grid img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 30px -10px rgba(183, 92, 58, 0.25);
+    }
+
+    /* contact */
+    .contact-section {
+      padding: 4rem 0;
+      background: var(--deep-green);
+      color: white;
+    }
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+    }
+    .contact-info {
+      flex: 1 1 300px;
+    }
+    .contact-info h3 {
+      font-size: 2.2rem;
+      margin-bottom: 1.8rem;
+      color: var(--beige);
+    }
+    .info-line {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.8rem 0;
+      font-size: 1.2rem;
+    }
+    .info-line i {
+      font-size: 2rem;
+      color: var(--gold-accent);
+      width: 40px;
+    }
+    .social-icons {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 2rem;
+    }
+    .social-icons a {
+      color: white;
+      background: var(--terracotta);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      background: var(--gold-accent);
+      transform: scale(1.1);
+    }
+    .map-box {
+      flex: 1 1 350px;
+      background: #cbc1b2;
+      height: 250px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid var(--beige);
+      font-size: 1.2rem;
+      color: var(--deep-green);
+      font-weight: 500;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%236b4f3c" opacity="0.2"><path d="M50 20 L70 40 L50 60 L30 40 Z" /></svg>');
+      background-color: #e0d3c4;
+    }
+
+    /* footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #1e2d24;
+      color: var(--beige);
+      font-size: 1rem;
+    }
+
+    /* animations and scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* responsive */
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .nav-links {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 500px) {
+      .hero-buttons .btn {
+        display: block;
+        margin: 0.8rem 0;
+        text-align: center;
+      }
+      .btn-outline {
+        margin-left: 0;
+      }
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="pattern-bg">
+  <!-- navigation -->
+  <nav class="navbar">
+    <div class="logo">Spice & Brew<span> café</span></div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO / HOME -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content fade-up">
+        <h1>Spice & Brew</h1>
+        <div class="hero-tagline">Where Tradition Meets Modern Taste.</div>
+        <p style="font-size: 1.3rem; color: #5e4b38;">Masala chai, filter coffee & modern Indian bites in a warm, earthy space.</p>
+        <div class="hero-buttons">
+          <a href="#menu" class="btn">View Menu</a>
+          <a href="#" class="btn btn-outline">Order Online <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+      </div>
+      <div class="hero-image fade-up">
+        <!-- high‑quality food photography simulation (free unsplash / pexels style) -->
+        <img src="https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Masala chai on rustic table" loading="lazy">
+        <img src="https://images.pexels.com/photos/16599105/pexels-photo-16599105.jpeg?auto=compress&cs=tinysrgb&w=600" alt="café ambiance with plants" loading="lazy">
+        <img class="wide" src="https://images.pexels.com/photos/31215302/pexels-photo-31215302.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Spiced tea and snacks" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- intro About (short) -->
+  <section id="about" class="intro-section">
+    <div class="container intro-card fade-up">
+      <p style="font-family: 'Playfair Display'; font-size: 2rem; color: var(--deep-green); margin-bottom: 0.5rem;">✨</p>
+      <p><strong>Spice & Brew Café</strong> is a contemporary Indian fusion space where street food classics meet global flavors. Fresh ingredients, handcrafted beverages, and a cozy yet premium atmosphere — every dish tells a story.</p>
+    </div>
+  </section>
+
+  <!-- MENU SECTION -->
+  <section id="menu" class="menu-section">
+    <div class="container">
+      <h2 class="section-title fade-up">our menu</h2>
+      <div class="section-sub fade-up">handcrafted • desi heart • modern soul</div>
+
+      <div class="menu-grid">
+        <!-- beverages -->
+        <div class="menu-category fade-up">
+          <h3 class="category-title">☕ Signature Beverages</h3>
+          <div class="menu-item"><span class="item-name">Masala Chai Latte</span> <span class="item-price">₹210</span></div>
+          <div class="menu-item"><span class="item-name">Filter Coffee (South Indian)</span> <span class="item-price">₹180</span></div>
+          <div class="menu-item"><span class="item-name">Turmeric “Golden” Latte</span> <span class="item-price">₹220</span></div>
+          <div class="menu-item"><span class="item-name">Neer More (Spiced Buttermilk)</span> <span class="item-price">₹140</span></div>
+          <div class="menu-item"><span class="item-name">Chili Guava Mocktail</span> <span class="item-price">₹250</span></div>
+        </div>
+
+        <!-- street & fusion bites -->
+        <div class="menu-category fade-up">
+          <h3 class="category-title">🌮 Street & Fusion Bites</h3>
+          <div class="menu-item"><span class="item-name">Vada Pav (Mumbai Slider)</span> <span class="item-price">₹220</span></div>
+          <div class="menu-item"><span class="item-name">Paneer Tikka Tacos</span> <span class="item-price">₹350</span></div>
+          <div class="menu-item"><span class="item-name">Samosa Chaat Bowl</span> <span class="item-price">₹280</span></div>
+          <div class="menu-item"><span class="item-name">Keema Pav (Minced meat + bun)</span> <span class="item-price">₹390</span></div>
+          <div class="menu-item"><span class="item-name">Tandoori Paneer Quesadilla</span> <span class="item-price">₹340</span></div>
+          <div class="menu-item"><span class="item-name">Chicken Tikka Sandwich</span> <span class="item-price">₹330</span></div>
+        </div>
+
+        <!-- comfort specials -->
+        <div class="menu-category fade-up">
+          <h3 class="category-title">🍲 Comfort Specials</h3>
+          <div class="menu-item"><span class="item-name">Masala Pasta</span> <span class="item-price">₹290</span></div>
+          <div class="menu-item"><span class="item-name">Poha (Savory flattened rice)</span> <span class="item-price">₹170</span></div>
+          <div class="menu-item"><span class="item-name">Appam with Vegetable Stew</span> <span class="item-price">₹350</span></div>
+          <div class="menu-item"><span class="item-name">Millet Porridge</span> <span class="item-price">₹210</span></div>
+          <div class="menu-item"><span class="item-name">Peanut Chaat</span> <span class="item-price">₹150</span></div>
+          <div class="menu-item"><span class="item-name">Masala Fries</span> <span class="item-price">₹190</span></div>
+          <div class="menu-item"><span class="item-name">Bun Maska (Buttered Bun)</span> <span class="item-price">₹120</span></div>
+        </div>
+
+        <!-- desserts -->
+        <div class="menu-category fade-up">
+          <h3 class="category-title">🍰 Signature Desserts</h3>
+          <div class="menu-item"><span class="item-name">Gulab Jamun Cheesecake</span> <span class="item-price">₹320</span></div>
+          <div class="menu-item"><span class="item-name">Ras Malai Cake</span> <span class="item-price">₹340</span></div>
+          <div class="menu-item"><span class="item-name">Masala Chai Panna Cotta</span> <span class="item-price">₹280</span></div>
+          <div class="menu-item"><span class="item-name">Jaggery & Coconut Mousse</span> <span class="item-price">₹260</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- features (icons) -->
+  <div class="features">
+    <div class="feature-item"><i class="fas fa-mug-hot"></i> Freshly Brewed Daily</div>
+    <div class="feature-item"><i class="fas fa-leaf"></i> Authentic Indian Recipes</div>
+    <div class="feature-item"><i class="fas fa-carrot"></i> Veg & Non‑veg Options</div>
+    <div class="feature-item"><i class="fas fa-bag-shopping"></i> Dine‑In / Takeaway / Online</div>
+  </div>
+
+  <!-- PHOTO GRID - professional food photography -->
+  <div style="background: #f5ede2; padding: 2rem 0;">
+    <h2 class="section-title" style="margin-bottom: 0.2rem;">visual stories</h2>
+    <p class="section-sub" style="margin-bottom: 1rem;">freshness in every frame</p>
+    <div class="photo-grid">
+      <img src="https://images.pexels.com/photos/31200180/pexels-photo-31200180.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Gulab jamun cheesecake slice" loading="lazy">
+      <img src="https://images.pexels.com/photos/4229042/pexels-photo-4229042.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Masala chai in earthen pot" loading="lazy">
+      <img src="https://images.pexels.com/photos/208555/pexels-photo-208555.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tacos with indian touch" loading="lazy">
+      <img src="https://images.pexels.com/photos/271715/pexels-photo-271715.jpeg?auto=compress&cs=tinysrgb&w=600" alt="filter coffee brass" loading="lazy">
+      <img src="https://images.pexels.com/photos/16152024/pexels-photo-16152024.jpeg?auto=compress&cs=tinysrgb&w=600" alt="samosa chaat bowl" loading="lazy">
+      <img src="https://images.pexels.com/photos/14509671/pexels-photo-14509671.jpeg?auto=compress&cs=tinysrgb&w=600" alt="vada pav slider" loading="lazy">
+      <img src="https://images.pexels.com/photos/11892615/pexels-photo-11892615.jpeg?auto=compress&cs=tinysrgb&w=600" alt="ras malai cake" loading="lazy">
+      <img src="https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=600" alt="café interior with plants" loading="lazy">
+    </div>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="contact-section">
+    <div class="container contact-container">
+      <div class="contact-info fade-up">
+        <h3>let’s share a cup</h3>
+        <div class="info-line"><i class="fas fa-phone-alt"></i> <span>9557386086</span></div>
+        <div class="info-line"><i class="fas fa-envelope"></i> <span>coffeemaker@gmail.com</span></div>
+        <div class="info-line"><i class="fas fa-clock"></i> <span>8 AM – 10 PM (every day)</span></div>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="map-box fade-up">
+        <div style="background: rgba(255,255,240,0.7); padding: 1.5rem; border-radius: 32px; text-align: center;">
+          <i class="fas fa-map-pin" style="font-size: 3rem; color: var(--terracotta);"></i>
+          <p style="font-weight: 600;">📍 22, Khan Market, New Delhi<br> (embedded Google Map)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© Spice & Brew Café — tradition infused, modern taste.</p>
+  </footer>
+
+  <!-- simple scroll reveal -->
+  <script>
+    (function() {
+      const faders = document.querySelectorAll('.fade-up');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      faders.forEach(el => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>
